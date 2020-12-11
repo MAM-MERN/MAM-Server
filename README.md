@@ -1,1 +1,5 @@
 # MAM-Server
+
+## Planning
+
+### Sprints
