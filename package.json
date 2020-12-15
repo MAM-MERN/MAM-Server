@@ -1,0 +1,29 @@
+{
+  "name": "mam-server",
+  "version": "1.0.0",
+  "description": "Melbourne Art Map server",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "nodemon forever app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dunerztd/MAM-Server.git"
+  },
+  "author": "Tom Dunstan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dunerztd/MAM-Server/issues"
+  },
+  "homepage": "https://github.com/dunerztd/MAM-Server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.7"
+  },
+  "devDependencies": {
+    "forever": "^3.0.4",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.6"
+  }
+}
