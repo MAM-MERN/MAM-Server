@@ -19,7 +19,8 @@
   "homepage": "https://github.com/dunerztd/MAM-Server#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.11.7"
+    "mongoose": "^5.11.7",
+    "mongoose-bcrypt": "^1.9.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
