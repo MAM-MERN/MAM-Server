@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
+const passport = require("passport");
 
 const artworkRouter = require('./routes/artworks_routes');
 const authRouter = require('./routes/auth_routes')
@@ -10,7 +11,7 @@ const port = process.env.port || 3009;
 
 const app = express();
 
-app.use(expressSession({
+app.use(session({
   secret: 'mam server',
   resave: false,
   saveUninitialized: true,
@@ -42,7 +43,24 @@ mongoose.connect(dbConn, {
   }
 });
 
+// passport
+require("./config/passport");
+app.use(passport.initialize());
+app.use(passport.session());
+
+// ejs (only for creating admin account)
+app.set('view engine', 'ejs')
+
+
 // Routes
+app.get('/', (req,res) => {
+    console.log(req.body.username);
+    console.log(req.body.password)
+    console.log(req.session);
+    console.log(req.user);
+  }
+)
+
 app.use('/artworks', artworkRouter);
 app.use('/auth', authRouter)
 

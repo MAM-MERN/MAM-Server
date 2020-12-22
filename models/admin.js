@@ -8,7 +8,7 @@ const Admin = new Schema({
   },
   password: {
     type: String,
-    bcrypt: true,
+    // bcrypt: true,
     required: true
   }
 })
