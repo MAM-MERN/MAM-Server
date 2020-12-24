@@ -54,10 +54,9 @@ app.set('view engine', 'ejs')
 
 // Routes
 app.get('/', (req,res) => {
-    console.log(req.body.username);
-    console.log(req.body.password)
-    console.log(req.session);
+    console.log(req.session.passport);
     console.log(req.user);
+    console.log(req.sessionID);
   }
 )
 

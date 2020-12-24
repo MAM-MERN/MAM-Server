@@ -1,13 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const passport = require("passport");
-const { logout, registerNew, registerCreate } = require('../controllers/auth_controller')
+const { loginAdmin, sendAdmin, logout, registerNew, registerCreate } = require('../controllers/auth_controller')
 
-router.post("/login",
-passport.authenticate('local', {
-        successRedirect: "/",
-        failureRedirect: "/auth/login"
-}));
+router.post("/login", loginAdmin, sendAdmin);
 
 router.get('/logout', logout)
 
