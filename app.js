@@ -53,12 +53,15 @@ app.set('view engine', 'ejs')
 
 
 // Routes
-app.get('/', (req,res) => {
-    console.log(req.session.passport);
-    console.log(req.user);
-    console.log(req.sessionID);
-  }
-)
+
+// // just for testing
+// app.get('/', (req,res) => {
+//     // console.log(req.session.passport);
+//     // console.log(req.user);
+//     // console.log(req.sessionID);
+//     console.log(req.session.cookie)
+//   }
+// )
 
 app.use('/artworks', artworkRouter);
 app.use('/auth', authRouter)
