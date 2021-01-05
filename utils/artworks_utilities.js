@@ -8,7 +8,7 @@ const getAllArtworks = function (req) {
 };
 
 // return a new artwork template
-const addArtworkToDB = function(req) {
+const addArtworkToDB = function (req) {
   console.log('hit addArtworkToDB function');
   console.log(req.body);
 
@@ -27,7 +27,14 @@ const addArtworkToDB = function(req) {
 
   return new Artwork(newArtwork)
 }
+
+// retrieving a single artwork by ID
+const getSingleArtworkFromDB = function (req) {
+  return Artwork.findById(req.params.id)
+}
+
 module.exports = {
   getAllArtworks,
-  addArtworkToDB
+  addArtworkToDB,
+  getSingleArtworkFromDB
 }
