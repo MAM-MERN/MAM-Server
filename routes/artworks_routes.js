@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const {
   getArtworks,
-  createArtwork
+  createArtwork,
+  uploadImage
 } = require('../controllers/artworks_controller')
 
 // GET on '/artworks'
@@ -11,6 +12,6 @@ router.get('/', getArtworks)
 
 // POST on '/artworks/new'
 // Create new artwork
-router.post('/new', createArtwork)
+router.post('/new', uploadImage, createArtwork)
 
 module.exports = router;
