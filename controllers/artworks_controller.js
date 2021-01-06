@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const {
   getAllArtworks,
-  addArtworkToDB
+  addArtworkToDB,
 } = require('../utils/artworks_utilities')
 
 // retrieve all artwork from the db and send to the front-end
@@ -54,6 +54,11 @@ const getSingleArtwork = function (req, res) {
       }
       res.send(singleArtwork);
     });
+}
+
+const deleteSingleArtwork = function (req, res) {
+
+  deleteSingleArtworkFromDB
 }
 
 module.exports = {

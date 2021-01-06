@@ -33,8 +33,14 @@ const getSingleArtworkFromDB = function (req) {
   return Artwork.findById(req.params.id)
 }
 
+// delete a single artwork by ID
+const deleteSingleArtworkFromDB = function (req) {
+  return Artwork.findByIdAndDelete(req.params.id)
+}
+
 module.exports = {
   getAllArtworks,
   addArtworkToDB,
-  getSingleArtworkFromDB
+  getSingleArtworkFromDB,
+  deleteSingleArtworkFromDB
 }
