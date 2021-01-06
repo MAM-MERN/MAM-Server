@@ -4,7 +4,8 @@ const {
   getArtworks,
   createArtwork,
   editArtwork,
-  getSingleArtwork
+  getSingleArtwork,
+  deleteSingleArtwork
 } = require('../controllers/artworks_controller')
 
 const {
@@ -26,5 +27,9 @@ router.get('/:id', getSingleArtwork)
 // PUT on '/artwork/edit/:id'
 // Edit a single artwork
 // router.put('/:id', editArtwork)
+
+// DELETE on '/artwork/:id'
+// Delete a single artwork
+router.delete('/:id', deleteSingleArtwork)
 
 module.exports = router;

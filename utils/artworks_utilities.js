@@ -3,7 +3,7 @@ require('dotenv').config()
 
 // get all artworks
 // return a query
-const getAllArtworks = function (req) {
+const getAllArtworksFromDB = function (req) {
     return Artwork.find();
 };
 
@@ -39,7 +39,7 @@ const deleteSingleArtworkFromDB = function (req) {
 }
 
 module.exports = {
-  getAllArtworks,
+  getAllArtworksFromDB,
   addArtworkToDB,
   getSingleArtworkFromDB,
   deleteSingleArtworkFromDB
