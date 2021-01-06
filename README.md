@@ -10,6 +10,9 @@ POST '/auth/login'
 GET '/auth/logout'
 - Logout for Admin
 
+GET '/auth/admin'
+- retrieve Admin session info
+
 ### Artwork
 ---
 GET '/artwork'
