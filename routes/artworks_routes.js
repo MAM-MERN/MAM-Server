@@ -34,3 +34,12 @@ router.get('/:id', getSingleArtwork)
 router.delete('/:id', deleteImage, deleteSingleArtwork)
 
 module.exports = router;
+
+// Edit functionality
+
+// if (req.files.foo) - there a new image to upload
+//  - deleteImage
+//  - uploadImage
+//  - findByIdAndUpdate - with req.body
+// else 
+//   findByIdAndUpdate - except 'image' and 'imageFileName' fields
