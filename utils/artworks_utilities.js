@@ -23,7 +23,7 @@ const addArtworkToDB = function (req) {
   newArtwork.geom.longitude = req.body.longitude
   newArtwork.easting = req.body.easting
   newArtwork.northing = req.body.northing
-  newArtwork.image = `https://mam-images.s3-ap-southeast-2.amazonaws.com/${req.files.image.name}`
+  newArtwork.image = `https://${process.env.AWS_S3_BUCKET}.s3-ap-southeast-2.amazonaws.com/${req.files.image.name}`
 
   return new Artwork(newArtwork)
 }

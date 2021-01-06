@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk');
+const { findByIdAndUpdate } = require('../models/artwork');
 require('dotenv').config()
 
 const {
@@ -95,6 +96,18 @@ const getSingleArtwork = function (req, res) {
       res.send(singleArtwork);
     });
 }
+
+// const editSingleArtwork = function (req, res) {
+  
+
+//   if (req.files.image.name) {
+//     deleteImage(req) - first search for filename in db
+//     uploadImage(req)
+//     findByIdAndUpdate(req)
+//   } else {
+//     findByIdAndUpdate(req) - but dont delete image URL
+//   }
+// }
 
 module.exports = {
   getArtworks,
