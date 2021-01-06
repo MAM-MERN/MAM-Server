@@ -2,15 +2,17 @@ const AWS = require('aws-sdk');
 require('dotenv').config()
 
 const {
-  getAllArtworks,
+  getAllArtworksFromDB,
   addArtworkToDB,
+  getSingleArtworkFromDB,
+  deleteSingleArtworkFromDB
 } = require('../utils/artworks_utilities')
 
 // retrieve all artwork from the db and send to the front-end
 const getArtworks = function (req, res) {
     // execute the query from getAllPosts
     // returns artwork in alphabetical order
-  getAllArtworks(req)
+  getAllArtworksFromDB(req)
     .sort({ name: 1 })
     .exec((err, artworks) => {
       if (err) {
@@ -56,13 +58,24 @@ const getSingleArtwork = function (req, res) {
     });
 }
 
+// delete a single artwork from the database
 const deleteSingleArtwork = function (req, res) {
-
-  deleteSingleArtworkFromDB
+  // executes delete query on a single artwork by ID
+  deleteSingleArtworkFromDB(req)
+    .exec((err) => {
+      if (err) {
+        res.status(500);
+        return res.json({
+          error: err.message
+        });
+      }
+      res.status(200)      
+    })
 }
 
 module.exports = {
   getArtworks,
   createArtwork,
-  getSingleArtwork
+  getSingleArtwork,
+  deleteSingleArtwork
 }
