@@ -69,7 +69,7 @@ const deleteSingleArtwork = function (req, res) {
           error: err.message
         });
       }
-      res.sendStatus(200)      
+      res.status(200)      
     })
 }
 

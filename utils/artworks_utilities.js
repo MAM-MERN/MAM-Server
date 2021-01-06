@@ -24,6 +24,7 @@ const addArtworkToDB = function (req) {
   newArtwork.easting = req.body.easting
   newArtwork.northing = req.body.northing
   newArtwork.image = `https://${process.env.AWS_S3_BUCKET}.s3-ap-southeast-2.amazonaws.com/${req.files.image.name}`
+  newArtwork.imageFileName = req.files.image.name
 
   return new Artwork(newArtwork)
 }

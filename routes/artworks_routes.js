@@ -9,7 +9,8 @@ const {
 } = require('../controllers/artworks_controller')
 
 const {
-  uploadImage
+  uploadImage,
+  deleteImage
 } = require('../utils/image_utilities')
 
 // GET on '/artworks'
@@ -30,6 +31,6 @@ router.get('/:id', getSingleArtwork)
 
 // DELETE on '/artwork/:id'
 // Delete a single artwork
-router.delete('/:id', deleteSingleArtwork)
+router.delete('/:id', deleteImage, deleteSingleArtwork)
 
 module.exports = router;
