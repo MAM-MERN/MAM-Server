@@ -9,6 +9,7 @@ async function loginAdmin(req, res, next) {
 
 function sendAdmin(req, res) {
   console.log('sending admin session info');
+  res.status(200)
   res.json({
     admin: req.user,
     sessionID: req.sessionID
@@ -31,7 +32,7 @@ function registerNew(req, res) {
 
 async function registerCreate(req, res, next) {
     const { username, password } = req.body;
-    const user = await AdminModel.create({ username, password });
+    await AdminModel.create({ username, password });
     res.redirect('/')
 }
 

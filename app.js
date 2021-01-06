@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
 const passport = require("passport");
+const fileUpload = require('express-fileupload');
+require('dotenv').config();
 
 const artworkRouter = require('./routes/artworks_routes');
 const authRouter = require('./routes/auth_routes')
@@ -51,12 +53,19 @@ app.use(passport.session());
 // ejs (only for creating admin account)
 app.set('view engine', 'ejs')
 
+// file upload for uploading images to amazon s3
+app.use(fileUpload());
+
 
 // Routes
+
+// just for testing
 app.get('/', (req,res) => {
-    console.log(req.session.passport);
-    console.log(req.user);
-    console.log(req.sessionID);
+    // console.log(req.session.passport);
+    // console.log(req.user);
+    // console.log(req.sessionID);
+    // console.log(req.session.cookie)
+    
   }
 )
 

@@ -43,6 +43,10 @@ const Artwork = new Schema({
   image: {
     type: String,
     required: true 
+  },
+  imageFileName: {
+    type: String,
+    required: true 
   }
 })
 
