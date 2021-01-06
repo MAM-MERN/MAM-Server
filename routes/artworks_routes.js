@@ -3,10 +3,13 @@ const router = express.Router();
 const {
   getArtworks,
   createArtwork,
-  uploadImage,
   editArtwork,
   getSingleArtwork
 } = require('../controllers/artworks_controller')
+
+const {
+  uploadImage
+} = require('../utils/image_utilities')
 
 // GET on '/artworks'
 // Returns all artworks
