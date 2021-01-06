@@ -37,7 +37,7 @@ module.exports = router;
 
 // Edit functionality
 
-// if (req.files.foo) - there a new image to upload
+// if (req.files.foo) - there is a new image to upload
 //  - deleteImage
 //  - uploadImage
 //  - findByIdAndUpdate - with req.body

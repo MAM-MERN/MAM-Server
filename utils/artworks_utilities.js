@@ -39,6 +39,9 @@ const deleteSingleArtworkFromDB = function (req) {
   return Artwork.findByIdAndDelete(req.params.id)
 }
 
+// update a single artwork by ID
+
+
 module.exports = {
   getAllArtworksFromDB,
   addArtworkToDB,
