@@ -75,7 +75,9 @@ const deleteSingleArtwork = function (req, res) {
           error: err.message
         });
       }
-      res.status(200)
+      res.json({
+        message: 'Artwork deleted successfully'
+      })
     })
 }
 
