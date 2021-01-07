@@ -27,7 +27,7 @@ const getArtworks = function (req, res) {
         error: err.message
         });
       }
-      res.send(artworks);
+      res.status(200).send(artworks);
     });
 };
 
@@ -60,7 +60,7 @@ const getSingleArtwork = function (req, res) {
           error: err.message
         });
       }
-      res.send(singleArtwork);
+      res.status(200).send(singleArtwork);
     });
 }
 
@@ -75,6 +75,7 @@ const deleteSingleArtwork = function (req, res) {
           error: err.message
         });
       }
+      res.status(202)
       res.json({
         message: 'Artwork deleted successfully'
       })
@@ -84,7 +85,6 @@ const deleteSingleArtwork = function (req, res) {
 // update a single artwork by ID
 const updateSingleArtwork = function (req, res) {
 
-  console.log('start of updateSingleArtwork');
   // execute query
   updateSingleArtworkFromDB(req)
     .exec((err) => {
@@ -94,7 +94,8 @@ const updateSingleArtwork = function (req, res) {
           error: err.message
         });
       }
-      res.json({message: 'update successful'})
+      res.status(200)
+      res.json({ message: 'update successful' })
     })
 }
 
