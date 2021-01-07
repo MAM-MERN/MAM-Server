@@ -5,8 +5,14 @@ const {
   getAllArtworksFromDB,
   addArtworkToDB,
   getSingleArtworkFromDB,
-  deleteSingleArtworkFromDB
+  deleteSingleArtworkFromDB,
+  updateSingleArtworkFromDB
 } = require('../utils/artworks_utilities')
+
+const {
+  uploadImage,
+  deleteImage
+} = require('../utils/image_utilities')
 
 // retrieve all artwork from the db and send to the front-end
 const getArtworks = function (req, res) {
@@ -69,7 +75,24 @@ const deleteSingleArtwork = function (req, res) {
           error: err.message
         });
       }
-      res.status(200)      
+      res.status(200)
+    })
+}
+
+// update a single artwork by ID
+const updateSingleArtwork = function (req, res) {
+
+  console.log('start of updateSingleArtwork');
+  // execute query
+  updateSingleArtworkFromDB(req)
+    .exec((err) => {
+      if (err) {
+        res.status(500);
+        return res.json({
+          error: err.message
+        });
+      }
+      res.json({message: 'update successful'})
     })
 }
 
@@ -77,5 +100,6 @@ module.exports = {
   getArtworks,
   createArtwork,
   getSingleArtwork,
-  deleteSingleArtwork
+  deleteSingleArtwork,
+  updateSingleArtwork
 }

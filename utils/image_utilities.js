@@ -4,6 +4,11 @@ const { getSingleArtworkFromDB } = require('./artworks_utilities')
 
 const uploadImage = function (req, res, next) {
 
+  // checks if there is a new image to upload. If there isn't, skip to next middleware
+  if (res.locals.noNewImageToUpload) {
+    return next()
+  }
+
   // creating global config object
   myConfig = new AWS.Config();
 
@@ -37,13 +42,21 @@ const uploadImage = function (req, res, next) {
       message: 'error uploading image',
       error: err
     })
-    res.sendStatus(501)
   }
+  // res.json({
+  //   message: 'image uploaded correctly'
+  // })
+  
 
   next()
 }
 
 const deleteImage = function (req, res, next) {
+
+  // checks if there is a new image to upload. If there isn't, skip to next middleware
+  if (res.locals.noNewImageToUpload) {
+    return next()
+  }
 
   // get imageFileName for artwork by ID
   getSingleArtworkFromDB(req)
@@ -51,7 +64,8 @@ const deleteImage = function (req, res, next) {
       if (err) {
         res.status(500);
         return res.json({
-          error: err.message
+          error: err.message,
+          message: 'inside deleteImage'
         });
       }
       const fileName = singleArtwork.imageFileName
@@ -77,9 +91,9 @@ const deleteImage = function (req, res, next) {
         })
         res.sendStatus(501)
       }
-      res.json({
-        message: 'image deleted correctly'
-      })
+      // res.json({
+      //   message: 'image deleted correctly'
+      // })
 
       next()
     });

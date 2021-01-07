@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   getArtworks,
   createArtwork,
-  editArtwork,
+  updateSingleArtwork,
   getSingleArtwork,
   deleteSingleArtwork
 } = require('../controllers/artworks_controller')
@@ -12,6 +12,8 @@ const {
   uploadImage,
   deleteImage
 } = require('../utils/image_utilities')
+
+const { checkIfNewImageToBeUploaded } = require('../utils/common_utilities')
 
 // GET on '/artworks'
 // Returns all artworks
@@ -27,19 +29,10 @@ router.get('/:id', getSingleArtwork)
 
 // PUT on '/artwork/edit/:id'
 // Edit a single artwork
-// router.put('/:id', editArtwork)
+router.put('/edit/:id', checkIfNewImageToBeUploaded, deleteImage, uploadImage, updateSingleArtwork)
 
 // DELETE on '/artwork/:id'
 // Delete a single artwork
 router.delete('/:id', deleteImage, deleteSingleArtwork)
 
 module.exports = router;
-
-// Edit functionality
-
-// if (req.files.foo) - there is a new image to upload
-//  - deleteImage
-//  - uploadImage
-//  - findByIdAndUpdate - with req.body
-// else 
-//   findByIdAndUpdate - except 'image' and 'imageFileName' fields

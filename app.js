@@ -60,12 +60,13 @@ app.use(fileUpload());
 // Routes
 
 // just for testing
-app.get('/', (req,res) => {
-    // console.log(req.session.passport);
-    // console.log(req.user);
-    // console.log(req.sessionID);
-    // console.log(req.session.cookie)
-    
+app.get('/', (req,res,next) => {
+    res.write('First: confirmed' + '\n')
+    next()
+  },
+  (req,res,next) => {
+    res.write(JSON.stringify({ x: 5, y: 6 }))
+    res.send()
   }
 )
 

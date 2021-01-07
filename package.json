@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha",
-    "start": "nodemon forever app.js"
+    "start": "nodemon forever app.js --trace-warnings"
   },
   "repository": {
     "type": "git",
