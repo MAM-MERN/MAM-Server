@@ -4,12 +4,16 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
 const passport = require("passport");
 const fileUpload = require('express-fileupload');
-require('dotenv').config();
+
+// If we are not running in production, load our local .env
+if(process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 const artworkRouter = require('./routes/artworks_routes');
 const authRouter = require('./routes/auth_routes')
 
-const port = process.env.port || 3009;
+const port = process.env.PORT || 3009;
 
 const app = express();
 
@@ -27,7 +31,13 @@ app.use(express.urlencoded({
 }));
 
 // Connecting to database
-const dbConn = 'mongodb://localhost/mern_app'
+
+// local DB
+// const dbConn = 'mongodb://localhost/mern_app'
+
+// Atlas DB
+const dbConn = process.env.MONGODB_URI
+
 // Set three properties to avoid deprecation warnings:
 // useNewUrlParser: true
 // useUnifiedTopology: true
