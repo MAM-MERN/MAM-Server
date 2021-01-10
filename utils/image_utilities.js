@@ -1,5 +1,4 @@
 const AWS = require('aws-sdk');
-require('dotenv').config()
 const { getSingleArtworkFromDB } = require('./artworks_utilities')
 
 const uploadImage = function (req, res, next) {

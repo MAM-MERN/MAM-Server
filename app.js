@@ -6,7 +6,7 @@ const passport = require("passport");
 const fileUpload = require('express-fileupload');
 
 // If we are not running in production, load our local .env
-if(process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
@@ -36,7 +36,9 @@ app.use(express.urlencoded({
 // const dbConn = 'mongodb://localhost/mern_app'
 
 // Atlas DB
-const dbConn = process.env.MONGODB_URI
+// const dbConn = process.env.MONGODB_URI
+
+const dbConn = process.env.MONGODB_URI || 'mongodb://localhost/mern_app'
 
 // Set three properties to avoid deprecation warnings:
 // useNewUrlParser: true
@@ -71,14 +73,8 @@ app.use(fileUpload());
 
 // just for testing
 app.get('/', (req,res,next) => {
-    res.write('First: confirmed' + '\n')
-    next()
-  },
-  (req,res,next) => {
-    res.write(JSON.stringify({ x: 5, y: 6 }))
-    res.send()
-  }
-)
+
+})
 
 app.use('/artworks', artworkRouter);
 app.use('/auth', authRouter)
