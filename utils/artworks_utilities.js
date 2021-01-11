@@ -30,9 +30,9 @@ const addArtworkToDB = function (req) {
   return new Artwork(newArtwork)
 }
 
-// retrieving a single artwork by ID
-const getSingleArtworkFromDB = function (req) {
-  return Artwork.findById(req.params.id)
+// retrieving all artworks by Artist field, using regex and the search term
+const searchArtworkFromDB = function (req) {
+  return Artwork.find({ name: { $regex: req.params.search, $options: 'i' } })
 }
 
 // delete a single artwork by ID
@@ -68,7 +68,7 @@ const updateSingleArtworkFromDB = function (req) {
 module.exports = {
   getAllArtworksFromDB,
   addArtworkToDB,
-  getSingleArtworkFromDB,
+  searchArtworkFromDB,
   deleteSingleArtworkFromDB,
   updateSingleArtworkFromDB
 }

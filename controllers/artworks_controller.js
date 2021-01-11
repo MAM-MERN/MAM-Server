@@ -4,7 +4,7 @@ require('dotenv').config()
 const {
   getAllArtworksFromDB,
   addArtworkToDB,
-  getSingleArtworkFromDB,
+  searchArtworkFromDB,
   deleteSingleArtworkFromDB,
   updateSingleArtworkFromDB
 } = require('../utils/artworks_utilities')
@@ -49,18 +49,18 @@ const createArtwork = async function (req, res) {
 }
 
 // retrieve a single artwork
-const getSingleArtwork = function (req, res) {
+const searchArtwork = function (req, res) {
 
-  // executes query to retrieve a single artwork by ID
-  getSingleArtworkFromDB(req)
-    .exec((err, singleArtwork) => {
+  // executes query to retrieve all artworks by artwork name field, using regex and search term
+  searchArtworkFromDB(req)
+    .exec((err, foundArtworks) => {
       if (err) {
         res.status(500);
         return res.json({
           error: err.message
         });
       }
-      res.status(200).send(singleArtwork);
+      res.status(200).send(foundArtworks);
     });
 }
 
@@ -102,7 +102,7 @@ const updateSingleArtwork = function (req, res) {
 module.exports = {
   getArtworks,
   createArtwork,
-  getSingleArtwork,
+  searchArtwork,
   deleteSingleArtwork,
   updateSingleArtwork
 }

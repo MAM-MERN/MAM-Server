@@ -4,7 +4,7 @@ const {
   getArtworks,
   createArtwork,
   updateSingleArtwork,
-  getSingleArtwork,
+  searchArtwork,
   deleteSingleArtwork
 } = require('../controllers/artworks_controller')
 
@@ -26,9 +26,9 @@ router.get('/', getArtworks)
 // Create new artwork
 router.post('/new', adminAuthentication, uploadImage, createArtwork)
 
-// GET on '/artworks/:id'
-// Retrieve a single artwork
-router.get('/:id', getSingleArtwork)
+// GET on '/artworks/:search'
+// Retrieve all artworks given a search term
+router.get('/:search', searchArtwork)
 
 // PUT on '/artwork/edit/:id'
 // Edit a single artwork

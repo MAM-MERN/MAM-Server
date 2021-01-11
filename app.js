@@ -4,6 +4,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
 const passport = require("passport");
 const fileUpload = require('express-fileupload');
+const cors = require('cors')
 
 // If we are not running in production, load our local .env
 if (process.env.NODE_ENV !== 'production') {
@@ -16,6 +17,9 @@ const authRouter = require('./routes/auth_routes')
 const port = process.env.PORT || 3009;
 
 const app = express();
+
+// use cors if we want to play with a client
+app.use(cors())
 
 app.use(session({
   secret: 'mam server',
