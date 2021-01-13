@@ -20,8 +20,6 @@ const addArtworkToDB = function (req) {
   newArtwork.geom = {}
   newArtwork.geom.latitude = req.body.latitude
   newArtwork.geom.longitude = req.body.longitude
-  newArtwork.easting = req.body.easting
-  newArtwork.northing = req.body.northing
   newArtwork.image = `https://${process.env.AWS_S3_BUCKET}.s3-ap-southeast-2.amazonaws.com/${req.files.image.name}`
   newArtwork.imageFileName = req.files.image.name
 
@@ -50,8 +48,6 @@ const updateSingleArtworkFromDB = function (req) {
   updateArtwork.geom = {}
   updateArtwork.geom.latitude = req.body.latitude
   updateArtwork.geom.longitude = req.body.longitude
-  updateArtwork.easting = req.body.easting
-  updateArtwork.northing = req.body.northing
 
   // only change these fields if a new image has been uploaded
   // req.files is where express-fileupload stores file information
