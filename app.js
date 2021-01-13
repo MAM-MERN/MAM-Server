@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
@@ -15,8 +16,6 @@ const artworkRouter = require('./routes/artworks_routes');
 const authRouter = require('./routes/auth_routes')
 
 const port = process.env.PORT || 3009;
-
-const app = express();
 
 // use cors if we want to play with a client
 app.use(cors())
@@ -35,13 +34,6 @@ app.use(express.urlencoded({
 }));
 
 // Connecting to database
-
-// local DB
-// const dbConn = 'mongodb://localhost/mern_app'
-
-// Atlas DB
-// const dbConn = process.env.MONGODB_URI
-
 const dbConn = process.env.MONGODB_URI || 'mongodb://localhost/mern_app'
 
 // Set three properties to avoid deprecation warnings:
@@ -71,7 +63,6 @@ app.set('view engine', 'ejs')
 
 // file upload for uploading images to amazon s3
 app.use(fileUpload());
-
 
 // Routes
 
