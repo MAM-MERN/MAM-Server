@@ -9,8 +9,6 @@ const getAllArtworksFromDB = function (req) {
 
 // return a new artwork template
 const addArtworkToDB = function (req) {
-  console.log('hit addArtworkToDB function');
-  console.log(req.body);
 
   // build new artwork
   let newArtwork = {}
@@ -62,7 +60,7 @@ const updateSingleArtworkFromDB = function (req) {
     updateArtwork.imageFileName = req.files.image.name
   }
 
-  return Artwork.findByIdAndUpdate(req.params.id, updateArtwork)
+  return Artwork.findByIdAndUpdate(req.params.id, updateArtwork, { new: true })
 }
 
 module.exports = {

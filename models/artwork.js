@@ -46,7 +46,7 @@ const Artwork = new Schema({
   },
   imageFileName: {
     type: String,
-    // required: true 
+    required: true 
   }
 })
 

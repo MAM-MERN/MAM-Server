@@ -9,11 +9,6 @@ const {
   updateSingleArtworkFromDB
 } = require('../utils/artworks_utilities')
 
-const {
-  uploadImage,
-  deleteImage
-} = require('../utils/image_utilities')
-
 // retrieve all artwork from the db and send to the front-end
 const getArtworks = function (req, res) {
     // execute the query from getAllPosts
@@ -48,11 +43,13 @@ const createArtwork = async function (req, res) {
     })
 }
 
-// retrieve a single artwork
+// search artworks
 const searchArtwork = function (req, res) {
 
   // executes query to retrieve all artworks by artwork name field, using regex and search term
+  // sorts found artworks by name field, alphabetically
   searchArtworkFromDB(req)
+    .sort({ name: 1 })
     .exec((err, foundArtworks) => {
       if (err) {
         res.status(500);
@@ -95,7 +92,9 @@ const updateSingleArtwork = function (req, res) {
         });
       }
       res.status(200)
-      res.json({ message: 'update successful' })
+      res.json({ 
+        message: 'update successful' 
+      })
     })
 }
 

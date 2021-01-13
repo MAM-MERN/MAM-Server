@@ -6,18 +6,14 @@
 ----
 POST '/auth/login'
 - Login for Admin
-- Passport uses fields 'username' and 'password'
-- will automatically send session info to the client once logged in
+- requires fields 'username' and 'password'
 
 GET '/auth/logout'
 - Logout for Admin
 
-GET '/auth/admin'
-- retrieve Admin session info
-
 ### Artwork
 ---
-GET '/artworks'
+GET '/artwork'
 - Retrieve all artworks in the database
 
 POST '/artworks/new'
@@ -25,12 +21,9 @@ POST '/artworks/new'
 
 ** input name must be 'image' for file upload ie. ```<input name="image" type="file" />``` **
 
-GET '/artworks/:id'
-- Retrieve a single artwork by ID
+GET '/artworks/:search'
+- Retrieves all artworks containing a given search term
+- Searches using the name field
 
-PUT '/artworks/edit/:id'
-- Update/edit a single artwork by ID
-
-DELETE '/artworks/:id'
+DELETE '/:id'
 - Delete a single artwork by ID both from the database and its image on amazon S3
-

@@ -2,7 +2,7 @@ const expect = require('chai').expect
 const artworksUtils = require('../utils/artworks_utilities')
 const mongoose = require('mongoose');
 const Artwork = require('../models/artwork')
-
+require('dotenv').config({path: '../'})
 
 // set up connection for test database
 const dbConn = 'mongodb://localhost/mern_app_test'
@@ -34,23 +34,124 @@ afterEach((done) => {
     tearDownData().exec(() => done());
 });
 
+// Testing retrieve all artworks query
 describe('Retrieving all artworks in the database collection', () => {
   it('Should be an array', async function () {
-    await artworksUtils.getAllArtworks().exec((err, artworks) => {
+    await artworksUtils.getAllArtworksFromDB().exec((err, artworks) => {
       expect(artworks).to.be.an('array')
     })
   }),
   it('Should retrieve two artworks', async function () {
-    await artworksUtils.getAllArtworks().exec((err, artworks) => {
+    await artworksUtils.getAllArtworksFromDB().exec((err, artworks) => {
       expect(artworks).to.have.lengthOf(2);
     })
   }),
   it('Artist name of first artwork should be "Mr Test"', async function () {
-    await artworksUtils.getAllArtworks().exec((err, artworks) => {
+    await artworksUtils.getAllArtworksFromDB().exec((err, artworks) => {
       expect(artworks[0].artist).to.equal('Mr Test');
     })
   })
 })
+
+// Testing create an artwork
+describe('Create a new Artwork entry', () => {
+  it('New entry Artist should equal Request Artist', async function () {
+    let req = {
+      body: {
+        title: 'New Artwork',
+        location: 'New Artwork City',
+        artist: 'Mr Newton',
+        date: '2021',
+        details: 'Copper',
+        latitude: '100',
+        longitude: '100',
+        easting: '150',
+        northing: '150',
+      },
+      files: {
+        image: {
+          name: 'new.jpg'
+        }
+      }
+    }
+    await artworksUtils.addArtworkToDB(req).save((err, artwork) => {
+      expect(artwork.artist).to.equal(req.body.artist)
+    })
+  })
+})
+
+// Testing edit a single artwork query
+describe('Edit a single artwork from the database', () => {
+  it("Change Artwork1's name to 'Edited Test Artwork 1'", async function () {
+    let req = {
+      body: {
+        title: 'New Edited Test Artwork 1',
+        location: '35 Test St, Melbourne',
+        artist: 'Mr Test',
+        date: '2020',
+        details: 'Metal',
+        latitude: '20',
+        longitude: '20',
+        easting: '30',
+        northing: '30',
+      },
+      files: {
+        image: {
+          name: 'test.jpg'
+        }
+      },
+      params: {
+        id: artworkId1
+      }
+    }
+    await artworksUtils.updateSingleArtworkFromDB(req).exec((err, updatedArtwork) => {
+      expect(updatedArtwork.name).to.equal(req.body.title)
+    })
+  })
+})
+
+// Testing search functionality
+describe('Search functionality', () => {
+  it("should return Artwork with artist 'Mr Test'", async function () {
+    let req = {
+      params: {
+        search: 'Test Artwork 1'
+      }
+    }
+
+    await artworksUtils.searchArtworkFromDB(req).exec((err, searchedArtworks) => {
+      expect(searchedArtworks[0].artist).to.equal('Mr Test')
+    })
+  })
+
+  it("should return all artworks with 'test' in it's name", async function () {
+    let req = {
+      params: {
+        search: 'test'
+      }
+    }
+
+    await artworksUtils.searchArtworkFromDB(req).exec((err, searchedArtworks) => {
+      expect(searchedArtworks).to.have.lengthOf(2);
+    })
+  })
+})
+
+// Testing delete single artwork query
+describe('Delete a single artwork from the database', () => {
+    it('should delete the specified artwork', async function () {
+        let req = {
+            params: {
+                id: artworkId1
+            }
+        }
+
+        await artworksUtils.deleteSingleArtworkFromDB(req).exec();
+        await Artwork.findById(artworkId1).exec((err, artwork1) => {
+            expect(artwork1).to.equal(null);
+        });
+    });
+});
 
 // Setup and tear down functions
 
@@ -85,7 +186,8 @@ function setupData1() {
     testArtwork1.geom.longitude = '20'
     testArtwork1.easting = '30'
     testArtwork1.northing = '30'
-    testArtwork1.image = 'http://www.test.com/test.jpg'
+    testArtwork1.image = `https://${process.env.AWS_S3_BUCKET}.s3-ap-southeast-2.amazonaws.com/test.jpg`
+    testArtwork1.imageFileName = 'test.jpg'
 
     return Artwork.create(testArtwork1);
 }
@@ -102,7 +204,8 @@ function setupData2() {
     testArtwork2.geom.longitude = '50'
     testArtwork2.easting = '100'
     testArtwork2.northing = '100'
-    testArtwork2.image = 'http://www.artworks.com/mock.jpg'
+    testArtwork2.image = `https://${process.env.AWS_S3_BUCKET}.s3-ap-southeast-2.amazonaws.com/mock.jpg`
+    testArtwork2.imageFileName = 'mock.jpg'
 
     return Artwork.create(testArtwork2);
 }
