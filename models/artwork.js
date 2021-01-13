@@ -32,14 +32,6 @@ const Artwork = new Schema({
       required: true      
     }
   },
-  easting: {
-    type: String,
-    required: true     
-  },
-  northing: {
-    type: String,
-    required: true 
-  },
   image: {
     type: String,
     required: [true, "Image is required"]
