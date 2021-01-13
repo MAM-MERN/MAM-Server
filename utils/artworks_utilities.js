@@ -59,12 +59,17 @@ const updateSingleArtworkFromDB = function (req) {
   return Artwork.findByIdAndUpdate(req.params.id, updateArtwork, { new: true })
 }
 
+const getSingleArtworkFromDB = function (req) {
+  return Artwork.findById(req.params.id)
+}
+
 module.exports = {
   getAllArtworksFromDB,
   addArtworkToDB,
   searchArtworkFromDB,
   deleteSingleArtworkFromDB,
-  updateSingleArtworkFromDB
+  updateSingleArtworkFromDB,
+  getSingleArtworkFromDB
 }
 
     // name: req.body.title,

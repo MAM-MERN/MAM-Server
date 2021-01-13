@@ -64,6 +64,7 @@ app.set('view engine', 'ejs')
 // file upload for uploading images to amazon s3
 app.use(fileUpload());
 
+
 // Routes
 
 // just for testing
