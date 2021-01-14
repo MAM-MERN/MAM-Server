@@ -4,8 +4,9 @@ require('dotenv').config()
 const {
   getAllArtworksFromDB,
   addArtworkToDB,
-  getSingleArtworkFromDB,
-  deleteSingleArtworkFromDB
+  searchArtworkFromDB,
+  deleteSingleArtworkFromDB,
+  updateSingleArtworkFromDB
 } = require('../utils/artworks_utilities')
 
 // retrieve all artwork from the db and send to the front-end
@@ -21,7 +22,7 @@ const getArtworks = function (req, res) {
         error: err.message
         });
       }
-      res.send(artworks);
+      res.status(200).send(artworks);
     });
 };
 
@@ -42,19 +43,21 @@ const createArtwork = async function (req, res) {
     })
 }
 
-// retrieve a single artwork
-const getSingleArtwork = function (req, res) {
+// search artworks
+const searchArtwork = function (req, res) {
 
-  // executes query to retrieve a single artwork by ID
-  getSingleArtworkFromDB(req)
-    .exec((err, singleArtwork) => {
+  // executes query to retrieve all artworks by artwork name field, using regex and search term
+  // sorts found artworks by name field, alphabetically
+  searchArtworkFromDB(req)
+    .sort({ name: 1 })
+    .exec((err, foundArtworks) => {
       if (err) {
         res.status(500);
         return res.json({
           error: err.message
         });
       }
-      res.send(singleArtwork);
+      res.status(200).send(foundArtworks);
     });
 }
 
@@ -69,13 +72,36 @@ const deleteSingleArtwork = function (req, res) {
           error: err.message
         });
       }
-      res.status(200)      
+      res.status(202)
+      res.json({
+        message: 'Artwork deleted successfully'
+      })
+    })
+}
+
+// update a single artwork by ID
+const updateSingleArtwork = function (req, res) {
+
+  // execute query
+  updateSingleArtworkFromDB(req)
+    .exec((err) => {
+      if (err) {
+        res.status(500);
+        return res.json({
+          error: err.message
+        });
+      }
+      res.status(200)
+      res.json({ 
+        message: 'update successful' 
+      })
     })
 }
 
 module.exports = {
   getArtworks,
   createArtwork,
-  getSingleArtwork,
-  deleteSingleArtwork
+  searchArtwork,
+  deleteSingleArtwork,
+  updateSingleArtwork
 }

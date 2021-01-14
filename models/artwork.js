@@ -20,29 +20,21 @@ const Artwork = new Schema({
   },
   structure_: {
     type: String,
-    required: true
+    required: [true, "Description is required"]
   },
   geom: {
     latitude: {
       type: String,
-      required: true
+      required: [true, "Latitude is required"]
     },
     longitude: {
       type: String,
-      required: true      
+      required: [true, "Longitude is required"]      
     }
-  },
-  easting: {
-    type: String,
-    required: true     
-  },
-  northing: {
-    type: String,
-    required: true 
   },
   image: {
     type: String,
-    required: true 
+    required: [true, "Image is required"]
   },
   imageFileName: {
     type: String,

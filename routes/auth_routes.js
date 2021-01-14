@@ -20,5 +20,8 @@ router.get('/logout', logout)
 // router.get('/register', registerNew);
 // router.post('/register', registerCreate);
 
+// GET on /auth/admin
+// retrieving session info
+router.get('/admin', sendAdmin)
 
 module.exports = router;
