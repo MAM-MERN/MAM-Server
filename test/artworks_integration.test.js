@@ -39,9 +39,9 @@ describe('GET /artworks/', () => {
         if (err) {
           console.log(err)
         }
-        console.log(res);
         expect(res).to.have.status(200);
         expect(res.body).to.have.lengthOf(2);
+        expect(res.body[0].artist).to.equal('Mr Test');
         done()
       })
   })

@@ -4,7 +4,7 @@
   "description": "Melbourne Art Map server",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "start": "nodemon app.js"
   },
   "repository": {

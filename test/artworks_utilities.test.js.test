@@ -28,6 +28,10 @@ afterEach((done) => {
     tearDownData().exec(() => done());
 });
 
+after((done) => {
+    mongoose.disconnect(() => done())
+})
+
 // Testing retrieve all artworks query
 describe('Retrieving all artworks in the database collection', () => {
   it('Should be an array', async function () {
