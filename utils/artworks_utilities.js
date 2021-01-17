@@ -71,15 +71,3 @@ module.exports = {
   updateSingleArtworkFromDB,
   getSingleArtworkFromDB
 }
-
-    // name: req.body.title,
-    // addresspt: req.body.location,
-    // artist: req.body.artist,
-    // artdate: req.body.date,
-    // structure_: req.body.details,
-    // geom: {
-    //   latitude: req.body.latitude,
-    //   longitude: req.body.longitude
-    // },
-    // easting: req.body.easting,
-    // northing: req.body.northing

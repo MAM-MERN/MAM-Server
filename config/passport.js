@@ -23,11 +23,14 @@ passport.deserializeUser(function(obj, cb) {
    cb(null, obj);
 });
 
+// passport local strategy
 passport.use(new LocalStrategy(
     async (username, password, done) => {
+        // retrieving admin account details from database
         const user = await AdminModel.findOne({ username })
             .catch(done);
 
+        // verifying if password is correct
         if (!user || !user.verifyPasswordSync(password)) {
             return done(null, false);
         }

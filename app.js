@@ -75,6 +75,6 @@ app.get('/', (req,res,next) => {
 app.use('/artworks', artworkRouter);
 app.use('/auth', authRouter)
 
-app.listen(port, () => {
+module.exports = app.listen(port, () => {
     console.log(`App listening on port ${port}`);
 });

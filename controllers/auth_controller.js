@@ -1,12 +1,14 @@
 const AdminModel = require('../models/admin')
 const passport = require("passport");
 
+// admin login authentication with passport js
 async function loginAdmin(req, res, next) {
   console.log('logging in Admin');
   const passportLogin = passport.authenticate("local");
   await passportLogin(req, res, next)
 }
 
+// send admin session info to client
 function sendAdmin(req, res) {
   console.log('sending admin session info');
   res.status(200)
@@ -16,7 +18,10 @@ function sendAdmin(req, res) {
   })
 }
 
+// Admin logout
 function logout(req, res) {
+  
+  // checks if admin is logged on first
   if (req.isAuthenticated()) {
     req.logout()
     return res.sendStatus(200)
