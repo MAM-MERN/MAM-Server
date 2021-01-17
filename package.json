@@ -19,6 +19,7 @@
   "homepage": "https://github.com/dunerztd/MAM-Server#readme",
   "dependencies": {
     "aws-sdk": "^2.821.0",
+    "chai-http": "^4.3.0",
     "connect-mongo": "^3.2.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
