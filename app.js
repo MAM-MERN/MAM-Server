@@ -29,8 +29,10 @@ app.use(session({
 let dbConn = null
 
 if (process.env.NODE_ENV === 'test') {
-  dbConn = 'mongodb://localhost/mern_app'
+  console.log('test database');
+  dbConn = 'mongodb://localhost/mern_app_test'
 } else {
+  console.log('other database');
   dbConn = process.env.MONGODB_URI || 'mongodb://localhost/mern_app'
 }
 
@@ -68,7 +70,7 @@ app.set('view engine', 'ejs')
 app.use(fileUpload());
 
 // cors
-app.use(cors())
+app.use(cors({ credentials: true }))
 
 // Routes
 
