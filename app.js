@@ -18,24 +18,22 @@ const authRouter = require('./routes/auth_routes')
 
 const port = process.env.PORT || 3009;
 
-// use cors if we want to play with a client
-app.use(cors())
-
 app.use(session({
-  secret: 'mam server',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: { expires: 600000 },
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-app.use(express.json());
-app.use(express.urlencoded({
-    extended:true   
-}));
-
 // Connecting to database
-const dbConn = process.env.MONGODB_URI || 'mongodb://localhost/mern_app'
+let dbConn = null
+
+if (process.env.NODE_ENV === 'test') {
+  dbConn = 'mongodb://localhost/mern_app'
+} else {
+  dbConn = process.env.MONGODB_URI || 'mongodb://localhost/mern_app'
+}
 
 // Set three properties to avoid deprecation warnings:
 // useNewUrlParser: true
@@ -54,6 +52,11 @@ mongoose.connect(dbConn, {
   }
 });
 
+app.use(express.json());
+app.use(express.urlencoded({
+    extended:true   
+}));
+
 // passport
 require("./config/passport");
 app.use(passport.initialize());
@@ -65,6 +68,8 @@ app.set('view engine', 'ejs')
 // file upload for uploading images to amazon s3
 app.use(fileUpload());
 
+// cors
+app.use(cors())
 
 // Routes
 
@@ -76,6 +81,10 @@ app.get('/', (req,res,next) => {
 app.use('/artworks', artworkRouter);
 app.use('/auth', authRouter)
 
-module.exports = app.listen(port, () => {
+app.listen(port, () => {
     console.log(`App listening on port ${port}`);
 });
+
+module.exports = {
+  app
+}
