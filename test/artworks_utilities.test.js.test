@@ -1,19 +1,13 @@
+if(process.env.NODE_ENV !== 'production') {
+  process.env.NODE_ENV = 'test'
+  require('dotenv').config({path: '../'});
+}
+
 const expect = require('chai').expect
 const artworksUtils = require('../utils/artworks_utilities')
 const mongoose = require('mongoose');
 const Artwork = require('../models/artwork')
-require('dotenv').config({path: '../'})
 
-// set up connection for test database
-const dbConn = 'mongodb://localhost/mern_app_test'
-
-// Use done to deal with asynchronous code - done is called when the hooks completes
-before((done) => connectToDb(done));
-
-// Disconnect from the test database after all tests run. Call done to indicate complete.
-after((done) => {
-    mongoose.disconnect(() => done())
-})
 
 let artworkId1 = null;
 let artworkId2 = null;
@@ -33,6 +27,10 @@ afterEach((done) => {
     // Execute the deleteMany query
     tearDownData().exec(() => done());
 });
+
+after((done) => {
+    mongoose.disconnect(() => done())
+})
 
 // Testing retrieve all artworks query
 describe('Retrieving all artworks in the database collection', () => {
@@ -64,9 +62,7 @@ describe('Create a new Artwork entry', () => {
         date: '2021',
         details: 'Copper',
         latitude: '100',
-        longitude: '100',
-        easting: '150',
-        northing: '150',
+        longitude: '100'
       },
       files: {
         image: {
@@ -91,9 +87,7 @@ describe('Edit a single artwork from the database', () => {
         date: '2020',
         details: 'Metal',
         latitude: '20',
-        longitude: '20',
-        easting: '30',
-        northing: '30',
+        longitude: '20'
       },
       files: {
         image: {
@@ -184,8 +178,6 @@ function setupData1() {
     testArtwork1.geom = {}
     testArtwork1.geom.latitude = '20'
     testArtwork1.geom.longitude = '20'
-    testArtwork1.easting = '30'
-    testArtwork1.northing = '30'
     testArtwork1.image = `https://${process.env.AWS_S3_BUCKET}.s3-ap-southeast-2.amazonaws.com/test.jpg`
     testArtwork1.imageFileName = 'test.jpg'
 
@@ -202,8 +194,6 @@ function setupData2() {
     testArtwork2.geom = {}
     testArtwork2.geom.latitude = '50'
     testArtwork2.geom.longitude = '50'
-    testArtwork2.easting = '100'
-    testArtwork2.northing = '100'
     testArtwork2.image = `https://${process.env.AWS_S3_BUCKET}.s3-ap-southeast-2.amazonaws.com/mock.jpg`
     testArtwork2.imageFileName = 'mock.jpg'
 

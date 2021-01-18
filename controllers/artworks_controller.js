@@ -1,6 +1,3 @@
-const AWS = require('aws-sdk');
-require('dotenv').config()
-
 const {
   getAllArtworksFromDB,
   addArtworkToDB,
