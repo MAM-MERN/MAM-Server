@@ -64,7 +64,7 @@ const deleteImage = function (req, res, next) {
         res.status(500);
         return res.json({
           error: err.message,
-          message: 'inside deleteImage'
+          message: 'error finding image to delete'
         });
       }
       const fileName = singleArtwork.imageFileName
@@ -85,7 +85,7 @@ const deleteImage = function (req, res, next) {
       catch(err) {
         console.log(err);
         res.json({
-          message: 'error deleting image',
+          message: 'error deleting image from S3',
           error: err
         })
         res.sendStatus(501)
