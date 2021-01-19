@@ -29,11 +29,13 @@ app.use(session({
 // Connecting to database
 let dbConn = null
 
-// if (process.env.NODE_ENV === 'test') {
-//   dbConn = 'mongodb://localhost/mern_app'
-// } else {
-dbConn = process.env.MONGODB_URI || 'mongodb://localhost/mern_app'
-// }
+if (process.env.NODE_ENV === 'test') {
+  console.log('test database');
+  dbConn = 'mongodb://localhost/mern_app_test'
+} else {
+  console.log('other database');
+  dbConn = process.env.MONGODB_URI || 'mongodb://localhost/mern_app'
+}
 
 // Set three properties to avoid deprecation warnings:
 // useNewUrlParser: true
@@ -69,7 +71,7 @@ app.set('view engine', 'ejs')
 app.use(fileUpload());
 
 // cors
-app.use(cors())
+app.use(cors({ credentials: true }))
 
 // Routes
 
