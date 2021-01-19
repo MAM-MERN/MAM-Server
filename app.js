@@ -30,10 +30,8 @@ app.use(session({
 let dbConn = null
 
 if (process.env.NODE_ENV === 'test') {
-  console.log('test database');
   dbConn = 'mongodb://localhost/mern_app_test'
 } else {
-  console.log('other database');
   dbConn = process.env.MONGODB_URI || 'mongodb://localhost/mern_app'
 }
 
